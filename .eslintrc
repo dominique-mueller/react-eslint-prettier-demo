@@ -5,7 +5,10 @@
     "plugin:@typescript-eslint/recommended",
     "react-app",
     "plugin:react/recommended",
-    "plugin:react-hooks/recommended"
+    "plugin:react-hooks/recommended",
+    "prettier/@typescript-eslint",
+    "plugin:prettier/recommended",
+    "prettier/react"
   ],
   "parser": "@typescript-eslint/parser",
   "parserOptions": {
@@ -15,14 +18,13 @@
       "jsx": true
     }
   },
-  "plugins": [
-    "@typescript-eslint",
-    "react",
-    "react-hooks"
-  ],
+  "plugins": ["@typescript-eslint", "react", "react-hooks", "prettier"],
   "settings": {
     "react": {
       "version": "detect"
     }
+  },
+  "rules": {
+    "eqeqeq": "error"
   }
 }
