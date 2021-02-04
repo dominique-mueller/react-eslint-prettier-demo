@@ -28,12 +28,12 @@
     "eslint-config-prettier": "7.2.x"
   },
   "scripts": {
-    "start": "react-scripts start",
-    "build": "react-scripts build",
+    "start": "cross-env DISABLE_ESLINT_PLUGIN=true react-scripts start",
+    "build": "cross-env DISABLE_ESLINT_PLUGIN=true react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject",
-    "lint": "cross-env DISABLE_ESLINT_PLUGIN=true eslint src/**/*.{ts,tsx} --max-warnings 0",
-    "lint:fix": "cross-env DISABLE_ESLINT_PLUGIN=true eslint src/**/*.{ts,tsx} --max-warnings 0 --fix"
+    "lint": "eslint src/**/*.{ts,tsx} --max-warnings 0",
+    "lint:fix": "eslint src/**/*.{ts,tsx} --max-warnings 0 --fix"
   },
   "eslintConfig": {
     "extends": [
