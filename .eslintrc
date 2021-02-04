@@ -23,8 +23,5 @@
     "react": {
       "version": "detect"
     }
-  },
-  "rules": {
-    "eqeqeq": "error"
   }
 }
