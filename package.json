@@ -16,11 +16,19 @@
     "typescript": "4.0.x",
     "web-vitals": "^1.1.0"
   },
+  "devDependencies": {
+    "cross-env": "7.0.x",
+    "eslint": "7.19.x",
+    "@typescript-eslint/eslint-plugin": "4.14.x",
+    "@typescript-eslint/parser": "4.14.x"
+  },
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
-    "eject": "react-scripts eject"
+    "eject": "react-scripts eject",
+    "lint": "cross-env DISABLE_ESLINT_PLUGIN=true eslint src/**/*.{ts,tsx} --max-warnings 0",
+    "lint:fix": "cross-env DISABLE_ESLINT_PLUGIN=true eslint src/**/*.{ts,tsx} --max-warnings 0 --fix"
   },
   "eslintConfig": {
     "extends": [
