@@ -1,46 +1,252 @@
-# Getting Started with Create React App
+<div align="center">
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+# react-eslint-prettier-demo
 
-## Available Scripts
+Demo for a **[React](https://reactjs.org/)** project using **[ESLint](https://eslint.org/)** and **[Prettier](https://prettier.io/)**, using
+GitHub actions as CI
 
-In the project directory, you can run:
+</div>
 
-### `npm start`
+<br><br>
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+## 1. Setup React application
 
-The page will reload if you make edits.\
-You will also see any lint errors in the console.
+Using **[Create React App](https://create-react-app.dev)**
 
-### `npm test`
+``` bash
+npx create-react-app react-eslint-prettier-demo --template typescript
+```
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+> Due to an incompatibility issue, this demo uses a downgraded version of TypeScript (`4.0.x` instead of `4.1.x`), which also requires the
+> `compilerOptions.jsx` value to be changed from `react-jsx` to `react`.
 
-### `npm run build`
+<br><br><br>
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+## 2. Setup ESLint w/ TypeScript support
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+Using **[ESLint](https://eslint.org/docs/user-guide/getting-started)**,
+**[TypeScript ESLint](https://github.com/typescript-eslint/typescript-eslint/blob/master/docs/getting-started/linting/README.md )**
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+<br>
 
-### `npm run eject`
+### Install dependencies
 
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
+`package.json`
 
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+``` diff
+  {
+    "devDependencies": {
++     "eslint": "x.x.x",
++     "@typescript-eslint/parser": "x.x.x",
++     "@typescript-eslint/eslint-plugin": "x.x.x"
+    }
+  }
+```
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
+``` bash
+npm install
+```
 
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
+<br>
 
-## Learn More
+### Configure ESLint
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+`.eslintrc`
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+``` diff
++ {
++   "extends": [
++     "eslint:recommended",
++     "plugin:@typescript-eslint/eslint-recommended",
++     "plugin:@typescript-eslint/recommended"
++    ],
++   "parser": "@typescript-eslint/parser",
++   "parserOptions": {
++     "ecmaVersion": 2018,
++     "sourceType": "module",
++     "ecmaFeatures": {
++       "jsx": true
++     }
++   },
++   "plugins": [
++     "@typescript-eslint"
++   ]
++ }
+```
+
+<br>
+
+### Setup scripts
+
+`package.json`
+
+``` diff
+  {
+    "scripts": {
++     "lint": "eslint src/**/*.{ts,tsx} --max-warnings 0",
++     "lint:fix": "eslint src/**/*.{ts,tsx} --max-warnings 0 --fix"
+    }
+  }
+```
+
+<br>
+
+### Bonus: Remove ESLint from build steps
+
+`package.json`
+
+``` diff
+  {
+    "devDependencies": {
++     "cross-env": "x.x.x"
+    }
+  }
+```
+
+```
+npm install
+```
+
+`package.json`
+
+``` diff
+  {
+    "scripts": {
+-     "start": "react-scripts start",
++     "start": "cross-env DISABLE_ESLINT_PLUGIN=true react-scripts start",
+-     "build": "react-scripts build",
++     "build": "cross-env DISABLE_ESLINT_PLUGIN=true react-scripts build",
+    }
+  }
+```
+
+<br><br><br>
+
+## 3. Add ESLint React support
+
+Using **[eslint-plugin-react](https://github.com/yannickcr/eslint-plugin-react)**,
+**[eslint-plugin-react-hooks](https://github.com/facebook/react/tree/master/packages/eslint-plugin-react-hooks)**
+
+<br>
+
+## Install dependencies
+
+`package.json`
+
+``` diff
+  {
+    "devDependencies": {
++     "eslint-plugin-react": "x.x.x",
++     "eslint-plugin-react-hooks": "x.x.x",
+    }
+  }
+```
+
+<br>
+
+## Configure ESLint
+
+`.eslintrc`
+
+``` diff
+  {
+    "extends": [
++     "react-app",
++     "plugin:react/recommended",
++     "plugin:react-hooks/recommended"
+    ],
+
+    "plugins": [
++     "react",
++     "react-hooks"
+    ],
+
++   "settings": {
++     "react": {
++       "version": "detect"
++     }
++   },
+  }
+```
+
+<br><br><br>
+
+## 4. Setup Prettier w/ ESLint integration
+
+Using, **[Prettier](https://prettier.io/)**, **[eslint-plugin-prettier](https://github.com/prettier/eslint-plugin-prettier)**,
+**[eslint-config-prettier](https://github.com/prettier/eslint-config-prettier)**
+
+<br>
+
+### Install dependencies
+
+`package.json`
+
+``` diff
+  {
+    "devDependencies": {
++     "eslint-config-prettier": "x.x.x",
++     "eslint-plugin-prettier": "x.x.x",
++     "prettier": "x.x.x",
+    }
+  }
+```
+
+<br>
+
+### Configure Prettier
+
+`.prettierrc`
+
+``` diff
++ {
++   "endOfLine": "auto",
++   "jsxBracketSameLine": false,
++   "printWidth": 140,
++   "singleQuote": true,
++   "trailingComma": "all"
++ }
+```
+
+<br>
+
+## Configure ESLint
+
+`.eslintrc`
+
+``` diff
+  {
+    "extends": [
++     "prettier/@typescript-eslint",
++     "plugin:prettier/recommended",
++     "prettier/react"
+    ],
+
+    "plugins": [
++     "prettier"
+    ]
+  }
+```
+
+<br><br><br>
+
+## Visual Studio Code integration
+
+<br>
+
+### Extensions
+
+- ESLint<br />https://marketplace.visualstudio.com/items?itemName=dbaeumer.vscode-eslint
+- Prettier<br />https://marketplace.visualstudio.com/items?itemName=esbenp.prettier-vscode
+
+<br>
+
+### Autofix on save
+
+`settings.json`
+
+``` diff
++ "editor.codeActionsOnSave": {
++   "source.fixAll.eslint": true
++ }
+```
