@@ -142,6 +142,10 @@ Using **[eslint-plugin-react](https://github.com/yannickcr/eslint-plugin-react)*
   }
 ```
 
+```
+npm install
+```
+
 <br>
 
 ## Configure ESLint
@@ -190,6 +194,10 @@ Using, **[Prettier](https://prettier.io/)**, **[eslint-plugin-prettier](https://
 +     "prettier": "x.x.x",
     }
   }
+```
+
+```
+npm install
 ```
 
 <br>
